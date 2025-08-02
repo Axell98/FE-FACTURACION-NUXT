@@ -8,6 +8,9 @@ export default defineNuxtConfig({
 		'@nuxt/ui',
 	],
 	ssr: false,
+	imports: {
+		dirs: ['store', 'composables/**'],
+	},
 	devtools: { enabled: false },
 	css: ['~/assets/css/main.css'],
 	runtimeConfig: {
