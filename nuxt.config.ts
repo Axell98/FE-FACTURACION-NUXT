@@ -5,9 +5,10 @@ export default defineNuxtConfig({
 		'@vueuse/nuxt',
 		'@nuxtjs/google-fonts',
 		'@pinia/nuxt',
+		'@nuxt/ui',
 	],
 	ssr: false,
-	devtools: { enabled: true },
+	devtools: { enabled: false },
 	css: ['~/assets/css/main.css'],
 	runtimeConfig: {
 		public: {

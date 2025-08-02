@@ -12,6 +12,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@nuxt/ui": "^3.3.0",
     "@pinia/nuxt": "0.11.2",
     "@vueuse/components": "13.6.0",
     "@vueuse/nuxt": "13.6.0",
