@@ -1,3 +1,6 @@
 <template>
-	<p>Template</p>
+	<main>
+		<LayoutMenuHeader />
+		<slot />
+	</main>
 </template>

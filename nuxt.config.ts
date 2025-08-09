@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 		'@nuxt/eslint',
 		'@vueuse/nuxt',
 		'@nuxtjs/google-fonts',
+		'@vee-validate/nuxt',
 		'@pinia/nuxt',
 		'@nuxt/ui',
 	],
@@ -28,5 +29,13 @@ export default defineNuxtConfig({
 				quotes: 'single',
 			},
 		},
+	},
+	googleFonts: {
+		families: {
+			Outfit: [400, 600],
+		},
+	},
+	veeValidate: {
+		autoImports: true,
 	},
 });
