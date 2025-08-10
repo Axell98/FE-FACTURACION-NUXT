@@ -3,6 +3,7 @@
 
 :root {
     --ui-radius: 0.25rem;
+    --height-header: 58px;
 }
 @layer base {
     body {

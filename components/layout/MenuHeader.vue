@@ -1,13 +1,45 @@
 <script lang="ts" setup>
 const colorMode = useColorMode();
 
+const itemsProfile = ref(
+	[
+		[
+			{
+				label: 'Axel Valle',
+				slot: 'account',
+				disabled: true,
+			},
+		],
+		[
+			{
+				label: 'Mi perfil',
+				icon: 'i-lucide-user',
+				onSelect() {
+					navigateTo('/configuracion/perfil');
+				},
+			},
+			{
+				label: 'Configuración',
+				icon: 'i-lucide-bolt',
+			},
+			{
+				label: 'Cerrar sesión',
+				icon: 'i-lucide-log-out',
+				onSelect(e: Event) {
+					e.preventDefault();
+				},
+			},
+		],
+	],
+);
+
 const changeThemeColor = () => {
 	colorMode.preference = (colorMode.value === 'light' ? 'dark' : 'light');
 };
 </script>
 
 <template>
-	<header class="w-full h-[60px] flex items-center px-3 border-b border-gray-300">
+	<header class="fixed top-0 z-20 left-[240px] w-[calc(100%_-_240px)] h-[var(--height-header)] flex items-center px-2 border-b border-gray-200 dark:border-gray-700">
 		<div class="flex items-center gap-4">
 			<UButton
 				color="neutral"
@@ -51,6 +83,40 @@ const changeThemeColor = () => {
 					size="lg"
 				/>
 			</UTooltip>
+			<UDropdownMenu
+				:items="itemsProfile"
+				:content="{
+					align: 'end',
+				}"
+				:ui="{
+					item: 'py-2.5 px-2',
+					content: 'min-w-50 p-1 shadow-lg',
+				}"
+			>
+				<UButton
+					color="neutral"
+					variant="ghost"
+				>
+					<UAvatar
+						src="/images/avatar-men.png"
+						size="sm"
+					/>
+					<UIcon
+						name="i-lucide-chevron-down"
+						class="size-5"
+					/>
+				</UButton>
+				<template #account="{ item }">
+					<div class="text-left">
+						<p class="font-bold text-[14px] uppercase">
+							{{ item.label }}
+						</p>
+						<p class="truncate font-medium text-sm mt-1">
+							Admin del sistema
+						</p>
+					</div>
+				</template>
+			</UDropdownMenu>
 		</div>
 	</header>
 </template>
