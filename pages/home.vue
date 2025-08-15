@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+useHead({
+	title: 'Home',
+});
+
 const items = ref([
 	{
 		label: 'Home',

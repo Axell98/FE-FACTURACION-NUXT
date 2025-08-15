@@ -1,51 +1,7 @@
 <script lang="ts" setup>
-import type { MenuData } from '~/domain/interfaces/menu.interface';
-
-const userMenu: MenuData[] = [
-	{
-		nombre: 'Dashboard',
-		icono: 'i-lucide-house',
-		visible: false,
-		submenus: [],
-	},
-	{
-		nombre: 'Inventario',
-		icono: 'i-lucide-house',
-		visible: false,
-		submenus: [],
-	},
-	{
-		nombre: 'Ventas',
-		icono: 'i-lucide-house',
-		visible: false,
-		submenus: [],
-	},
-	{
-		nombre: 'Configuración',
-		icono: 'i-lucide-house',
-		visible: false,
-		submenus: [
-			{
-				nombre: 'Empresa',
-				icono: 'i-lucide-house',
-				submenus: [],
-				visible: false,
-			},
-			{
-				nombre: 'Usuarios',
-				icono: 'i-lucide-house',
-				submenus: [],
-				visible: false,
-			},
-			{
-				nombre: 'Roles',
-				icono: 'i-lucide-house',
-				submenus: [],
-				visible: false,
-			},
-		],
-	},
-];
+const { getMenuAuth } = useApiMenu();
+const menuStore = useMenuStore();
+await getMenuAuth();
 </script>
 
 <template>
@@ -69,27 +25,27 @@ const userMenu: MenuData[] = [
 			/>
 		</div>
 		<ul
-			v-for="(menu, i) in userMenu"
+			v-for="(menu, i) in menuStore?.userMenu"
 			:key="i"
 			class="px-2"
 		>
 			<li class="mb-1">
-				<p class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer">
+				<p class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-green-600 hover:bg-gray-100">
 					<UIcon
 						:name="menu.icono"
-						class="size-[17px]"
+						class="size-[18px]"
 					/>
 					<span>{{ menu.nombre }}</span>
-					<UIcon
+					<!-- <UIcon
 						v-if="Boolean(menu.submenus.length)"
 						name="i-lucide-chevron-down"
 						class="size-[17px] ms-auto"
-					/>
+					/> -->
 				</p>
-				<LayoutMenuNavSub
+				<!-- <LayoutMenuNavSub
 					v-if="Boolean(menu.submenus.length)"
 					:menu="menu.submenus"
-				/>
+				/> -->
 			</li>
 		</ul>
 	</nav>
