@@ -1,4 +1,4 @@
-import type { DataResponse } from '~/domain/common/inteface';
+import type { DataResponse } from '~/domain/interfaces/response.interface';
 import type { UserData } from '~/domain/interfaces/user.interface';
 
 const useApiUsuarios = () => {

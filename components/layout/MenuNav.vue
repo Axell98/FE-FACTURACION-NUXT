@@ -32,20 +32,21 @@ await getMenuAuth();
 			<li class="mb-1">
 				<p class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-green-600 hover:bg-gray-100">
 					<UIcon
+						v-if="menu.icono"
 						:name="menu.icono"
 						class="size-[18px]"
 					/>
 					<span>{{ menu.nombre }}</span>
-					<!-- <UIcon
+					<UIcon
 						v-if="Boolean(menu.submenus.length)"
 						name="i-lucide-chevron-down"
 						class="size-[17px] ms-auto"
-					/> -->
+					/>
 				</p>
-				<!-- <LayoutMenuNavSub
+				<LayoutMenuNavSub
 					v-if="Boolean(menu.submenus.length)"
 					:menu="menu.submenus"
-				/> -->
+				/>
 			</li>
 		</ul>
 	</nav>

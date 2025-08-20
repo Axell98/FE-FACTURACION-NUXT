@@ -1,4 +1,4 @@
-import type { DataResponse } from '~/domain/common/inteface';
+import type { DataResponse } from '~/domain/interfaces/response.interface';
 import type { MenuData } from '~/domain/interfaces/menu.interface';
 
 const useApiMenu = () => {
@@ -9,7 +9,7 @@ const useApiMenu = () => {
 	const getMenuAuth = async () => {
 		if (menuStore.menuAuth.data) return;
 		const { data, error } = await useLazyFetch<DataResponse<MenuData[]>>(
-			`${config.public.apiURL}/configuracion/sistema/menu`,
+			`${config.public.apiURL}/configuracion/sistema/menu/user`,
 			{
 				headers,
 			},
