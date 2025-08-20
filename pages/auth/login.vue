@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { object, string } from 'yup';
+
 definePageMeta({
 	layout: false,
 });
@@ -8,49 +10,89 @@ useHead({
 });
 
 const authStore = useAuthStore();
+const errorMessage = ref<string>('');
 
-const messageError = ref<string>('');
 const credentials = reactive({
 	usuario: '',
 	password: '',
 });
 
-const handleLogin = async () => {
-	const response = await authStore.login({
+const schema = object({
+	usuario: string().required('Campo requerido'),
+	password: string().required('Campo requerido'),
+});
+
+const submitLogin = async () => {
+	const message = await authStore.login({
 		usuario: credentials.usuario,
 		password: credentials.password,
 	});
-	if (response.status) {
-		navigateTo('/home');
-	}
-	messageError.value = response.message;
+	errorMessage.value = message;
 };
 </script>
 
 <template>
 	<section class="w-full flex min-h-screen">
-		<div class="bg-amber-500 w-full" />
-		<div class="w-full flex items-center justify-center max-w-[500px] p-4">
-			<div>
-				<div v-if="Boolean(messageError.length)">
-					{{ messageError }}
-				</div>
-				<h1>Login</h1>
-				<input
-					v-model="credentials.usuario"
-					type="text"
-					placeholder="Nombre de usuario"
+		<div class="bg-teal-500 w-full" />
+		<div class="w-full max-w-[480px] flex flex-col items-center justify-center">
+			<div class="w-[68%]">
+				<UAlert
+					v-show="Boolean(errorMessage.length)"
+					color="error"
+					variant="subtle"
+					:description="errorMessage"
+					icon="i-lucide-circle-x"
+					class="my-3"
+				/>
+				<UForm
+					class="flex flex-col space-y-5"
+					:schema="schema"
+					:state="credentials"
+					@submit.prevent="submitLogin"
 				>
-				<br>
-				<input
-					v-model="credentials.password"
-					type="text"
-					placeholder="Contraseña"
-				>
-				<br>
-				<UButton @click="handleLogin">
-					Ingresar
-				</UButton>
+					<UFormField
+						label="Usuario:"
+						name="usuario"
+						:ui="{
+							error: 'text-xs mt-1',
+						}"
+					>
+						<UInput
+							v-model="credentials.usuario"
+							type="text"
+							class="w-full"
+							icon="i-lucide-user"
+							placeholder="Ingresar usuario"
+							:ui="{
+								base: 'py-[10px]',
+							}"
+						/>
+					</UFormField>
+					<UFormField
+						label="Contraseña:"
+						name="password"
+						:ui="{
+							error: 'text-xs mt-1',
+						}"
+					>
+						<UInput
+							v-model="credentials.password"
+							type="password"
+							class="w-full"
+							icon="i-lucide-lock-keyhole"
+							placeholder="Ingresar contraseña"
+							:ui="{
+								base: 'py-[10px]',
+							}"
+						/>
+					</UFormField>
+					<UButton
+						label="Ingresar"
+						type="submit"
+						class="py-2 mt-1"
+						block
+					/>
+				</UForm>
 			</div>
 		</div>
 	</section>

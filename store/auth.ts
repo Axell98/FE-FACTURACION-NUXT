@@ -1,31 +1,58 @@
 import { defineStore } from 'pinia';
-import type { AuthStoreData, UserData } from '~/domain/interfaces/auth.interface';
+import type { UserData } from '~/domain/interfaces/auth.interface';
+
+interface AuthState {
+	user: UserData | null;
+	token: string | null;
+	loading: boolean;
+}
 
 export const useAuthStore = defineStore('auth', {
-	state: (): AuthStoreData => ({
+	state: (): AuthState => ({
 		user: null,
 		token: import.meta.client ? localStorage.getItem('tokenAuth') : null,
-		authenticated: false,
 		loading: true,
 	}),
+	getters: {
+		isAuthenticated: (state): boolean => !!state.token && !!state.user,
+	},
 	actions: {
-		setUser(user: UserData) {
-			this.user = user;
-			this.authenticated = true;
-		},
 		setToken(token: string) {
-			localStorage.setItem('tokenAuth', token);
 			this.token = token;
+			localStorage.setItem('tokenAuth', token);
 		},
 		clearAuth() {
-			localStorage.removeItem('tokenAuth');
-			this.token = null;
 			this.user = null;
-			this.authenticated = false;
+			this.token = null;
+			localStorage.removeItem('tokenAuth');
+		},
+		async login(credentials: Record<string, unknown>) {
+			const { login } = useApiAuth();
+			try {
+				const response = await login(credentials);
+				const { accessToken, userData } = response?.data;
+				this.setToken(accessToken);
+				this.user = userData;
+				await navigateTo('/home');
+			}
+			catch (error) {
+				this.clearAuth();
+				console.error('Error login', error);
+				return error?.data.message || 'Error en el servidor';
+			}
 		},
 		async logout() {
-			this.clearAuth();
-			return navigateTo('/auth/login');
+			const { logout } = useApiAuth();
+			try {
+				await logout();
+			}
+			catch (error) {
+				console.error('Error logout', error);
+			}
+			finally {
+				this.clearAuth();
+				await navigateTo('/auth/login');
+			}
 		},
 	},
 });

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+const authStore = useAuthStore();
 const colorMode = useColorMode();
 
 const itemsProfile = ref(
@@ -27,6 +28,7 @@ const itemsProfile = ref(
 				icon: 'i-lucide-log-out',
 				onSelect(e: Event) {
 					e.preventDefault();
+					authStore.logout();
 				},
 			},
 		],

@@ -3,7 +3,7 @@ const useApiAuth = () => {
 	const headers = useHeaders().value;
 
 	const login = async (credentials: Record<string, unknown>) => {
-		return $fetch('/auth/login', {
+		return await $fetch('/auth/login', {
 			baseURL: config.public.apiURL,
 			method: 'POST',
 			body: credentials,
