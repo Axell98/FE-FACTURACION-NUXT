@@ -29,16 +29,45 @@ export const useAuthStore = defineStore('auth', {
 		async login(credentials: Record<string, unknown>) {
 			const { login } = useApiAuth();
 			try {
-				const response = await login(credentials);
-				const { accessToken, userData } = response?.data;
-				this.setToken(accessToken);
+				const response: any = await login(credentials);
+				if (!response.status) {
+					throw new Error(response.message || 'Error en login');
+				}
+				const { accessToken, userData, expiresIn } = response.data;
 				this.user = userData;
+				this.setToken(accessToken);
+				localStorage.setItem('expiresIn', expiresIn);
 				await navigateTo('/home');
 			}
-			catch (error) {
+			catch (error: any) {
 				this.clearAuth();
 				console.error('Error login', error);
-				return error?.data.message || 'Error en el servidor';
+				return error?.data.message || 'Server error';
+			}
+		},
+		async validateAuth() {
+			if (!this.token && import.meta.client) {
+				this.token = localStorage.getItem('tokenAuth');
+			}
+
+			if (!this.token) {
+				this.loading = false;
+				return false;
+			}
+			try {
+				const { profile } = useApiAuth();
+				const response: any = await profile();
+				this.user = response.data;
+				return true;
+			}
+			catch (error) {
+				console.error('Error en validateAuth', error);
+				this.clearAuth();
+				await navigateTo('/auth/login');
+				return false;
+			}
+			finally {
+				this.loading = false;
 			}
 		},
 		async logout() {

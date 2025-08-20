@@ -2,6 +2,7 @@
 import { object, string } from 'yup';
 
 definePageMeta({
+	middleware: 'guest',
 	layout: false,
 });
 
@@ -11,6 +12,7 @@ useHead({
 
 const authStore = useAuthStore();
 const errorMessage = ref<string>('');
+const loading = ref<boolean>(false);
 
 const credentials = reactive({
 	usuario: '',
@@ -23,11 +25,13 @@ const schema = object({
 });
 
 const submitLogin = async () => {
+	loading.value = true;
 	const message = await authStore.login({
 		usuario: credentials.usuario,
 		password: credentials.password,
 	});
 	errorMessage.value = message;
+	loading.value = false;
 };
 </script>
 
@@ -90,6 +94,7 @@ const submitLogin = async () => {
 						label="Ingresar"
 						type="submit"
 						class="py-2 mt-1"
+						:loading="loading"
 						block
 					/>
 				</UForm>
