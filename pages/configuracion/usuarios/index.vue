@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { h, resolveComponent } from 'vue';
 import type { UserData } from '~/domain/interfaces/user.interface';
 
 definePageMeta({
@@ -14,6 +15,7 @@ const apiUsuarios = useApiUsuarios();
 const { data, pending } = await apiUsuarios.list();
 
 const table = useTemplateRef('table');
+const UBadge = resolveComponent('UBadge');
 const listadoUsuarios = ref<UserData[]>([]);
 
 watch(data, (response) => {
@@ -52,6 +54,13 @@ const columnsTable = [
 	{
 		accessorKey: 'activo',
 		header: 'Estado',
+		cell: ({ row }) => {
+			const color = ({
+				true: 'success' as const,
+				false: 'error' as const,
+			})[row.getValue('activo') as string];
+			return h(UBadge, { class: 'capitalize', variant: 'subtle', color }, () => row.getValue('activo') == true ? 'Activo' : 'Inactivo');
+		},
 	},
 	{
 		accessorKey: 'created_at',

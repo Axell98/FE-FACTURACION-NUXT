@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { UserData } from '~/domain/interfaces/user.interface';
+import type { RoleData } from '~/domain/interfaces/roles.interface';
 
 definePageMeta({
 	middleware: 'auth',
@@ -9,16 +9,16 @@ useHead({
 	title: 'Roles',
 });
 
-const apiUsuarios = useApiUsuarios();
+const apiRoles = useApiRoles();
 
-const { data, pending } = await apiUsuarios.list();
+const { data, pending } = await apiRoles.list();
 
 const table = useTemplateRef('table');
-const listadoUsuarios = ref<UserData[]>([]);
+const listadoRoles = ref<RoleData[]>([]);
 
 watch(data, (response) => {
 	if (response?.status) {
-		listadoUsuarios.value = response.data;
+		listadoRoles.value = response.data;
 	}
 });
 
@@ -42,16 +42,8 @@ const columnsTable = [
 		header: 'Id',
 	},
 	{
-		accessorKey: 'usuario',
-		header: 'Usuario',
-	},
-	{
-		accessorKey: 'nombre',
-		header: 'Nombre',
-	},
-	{
-		accessorKey: 'activo',
-		header: 'Estado',
+		accessorKey: 'display_name',
+		header: 'Nombre del rol',
 	},
 	{
 		accessorKey: 'created_at',
@@ -61,7 +53,7 @@ const columnsTable = [
 
 const columnFilters = ref([
 	{
-		id: 'nombre',
+		id: 'display_name',
 		value: '',
 	},
 ]);
@@ -78,11 +70,11 @@ const columnFilters = ref([
 		<div class="bg-white dark:bg-slate-900 w-full mt-4 rounded-lg p-4 shadow-sm">
 			<div class="flex justify-between px-0.5 py-2">
 				<UInput
-					:model-value="table?.tableApi?.getColumn('nombre')?.getFilterValue() as string"
+					:model-value="table?.tableApi?.getColumn('display_name')?.getFilterValue() as string"
 					class="max-w-sm"
 					placeholder="Buscar rol..."
 					size="lg"
-					@update:model-value="table?.tableApi?.getColumn('nombre')?.setFilterValue($event)"
+					@update:model-value="table?.tableApi?.getColumn('display_name')?.setFilterValue($event)"
 				/>
 				<UButton
 					label="Nuevo rol"
@@ -96,7 +88,7 @@ const columnFilters = ref([
 				v-else
 				ref="table"
 				v-model:column-filters="columnFilters"
-				:data="listadoUsuarios"
+				:data="listadoRoles"
 				:columns="columnsTable"
 				class="flex-1 mt-2"
 				empty="No existen registros"

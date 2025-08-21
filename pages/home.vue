@@ -10,10 +10,10 @@ useHead({
 const items = ref([
 	{
 		label: 'Home',
+		to: '/home',
 	},
 	{
 		label: 'Dashboard',
-		to: '/home',
 	},
 ]);
 </script>
@@ -21,7 +21,7 @@ const items = ref([
 <template>
 	<LayoutBaseLayout>
 		<div class="flex items-center justify-between">
-			<h1 class="font-bold">
+			<h1 class="font-bold uppercase">
 				Dashboard
 			</h1>
 			<UBreadcrumb :items="items" />

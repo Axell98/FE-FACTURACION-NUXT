@@ -30,7 +30,10 @@ await getMenuAuth();
 			class="px-2"
 		>
 			<li class="mb-1">
-				<p class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-primary hover:bg-teal-100 dark:hover:bg-cyan-900">
+				<p
+					v-if="Boolean(menu.submenus.length)"
+					class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-primary hover:bg-teal-100 dark:hover:bg-cyan-900"
+				>
 					<UIcon
 						v-if="menu.icono"
 						:name="menu.icono"
@@ -43,6 +46,23 @@ await getMenuAuth();
 						class="size-[17px] ms-auto"
 					/>
 				</p>
+				<NuxtLink
+					v-else
+					:to="menu.url"
+					class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-primary hover:bg-teal-100 dark:hover:bg-cyan-900"
+				>
+					<UIcon
+						v-if="menu.icono"
+						:name="menu.icono"
+						class="size-[18px]"
+					/>
+					<span>{{ menu.nombre }}</span>
+					<UIcon
+						v-if="Boolean(menu.submenus.length)"
+						name="i-lucide-chevron-down"
+						class="size-[17px] ms-auto"
+					/>
+				</NuxtLink>
 				<LayoutMenuNavSub
 					v-if="Boolean(menu.submenus.length)"
 					:menu="menu.submenus"
