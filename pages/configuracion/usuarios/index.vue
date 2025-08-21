@@ -17,6 +17,7 @@ const { data, pending } = await apiUsuarios.list();
 const table = useTemplateRef('table');
 const UBadge = resolveComponent('UBadge');
 const listadoUsuarios = ref<UserData[]>([]);
+const showDrawerPanel = ref<boolean>(false);
 
 watch(data, (response) => {
 	if (response?.status) {
@@ -96,6 +97,7 @@ const columnFilters = ref([
 				<UButton
 					label="Nuevo usuario"
 					size="lg"
+					@click="showDrawerPanel = true"
 				/>
 			</div>
 			<div v-if="pending">
@@ -111,5 +113,26 @@ const columnFilters = ref([
 				empty="No existen registros"
 			/>
 		</div>
+		<UDrawer
+			v-model:open="showDrawerPanel"
+			:dismissible="false"
+			direction="right"
+			:ui="{ header: 'flex items-center justify-between' }"
+		>
+			<template #header>
+				<h2 class="text-highlighted font-semibold">
+					Nuevo usuario
+				</h2>
+				<UButton
+					color="neutral"
+					variant="ghost"
+					icon="i-lucide-x"
+					@click="showDrawerPanel = false"
+				/>
+			</template>
+			<template #body>
+				<FormsFormUserReg />
+			</template>
+		</UDrawer>
 	</LayoutBaseLayout>
 </template>

@@ -41,7 +41,7 @@ const changeThemeColor = () => {
 </script>
 
 <template>
-	<header class="fixed top-0 z-20 left-[240px] w-[calc(100%_-_240px)] h-[var(--height-header)] flex items-center px-2 border-b border-gray-200 dark:border-gray-700">
+	<header class="fixed top-0 z-20 left-[235px] w-[calc(100%_-_235px)] h-[var(--height-header)] flex items-center px-2 border-b border-gray-200 dark:border-gray-700">
 		<div class="flex items-center gap-4">
 			<UButton
 				color="neutral"

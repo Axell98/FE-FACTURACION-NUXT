@@ -5,7 +5,7 @@ await getMenuAuth();
 </script>
 
 <template>
-	<nav class="fixed top-0 left-0 z-20 w-[240px] min-h-screen border-r border-gray-200 dark:border-gray-700">
+	<nav class="fixed top-0 left-0 z-20 w-[235px] min-h-screen border-r border-gray-200 dark:border-gray-700">
 		<div class="w-full flex items-center h-[var(--height-header)] mb-2 gap-1 px-3">
 			<img
 				src="https://riaac.com/img/icons/logo2.png"
