@@ -25,14 +25,13 @@ export const useAuthStore = defineStore('auth', {
 			this.user = null;
 			this.token = null;
 			localStorage.removeItem('tokenAuth');
+			localStorage.removeItem('expiresIn');
+			localStorage.removeItem('menuAuth');
 		},
 		async login(credentials: Record<string, unknown>) {
 			const { login } = useApiAuth();
 			try {
 				const response: any = await login(credentials);
-				if (!response.status) {
-					throw new Error(response.message || 'Error en login');
-				}
 				const { accessToken, userData, expiresIn } = response.data;
 				this.user = userData;
 				this.setToken(accessToken);
@@ -73,14 +72,12 @@ export const useAuthStore = defineStore('auth', {
 		async logout() {
 			const { logout } = useApiAuth();
 			try {
+				this.clearAuth();
+				await navigateTo('/auth/login');
 				await logout();
 			}
 			catch (error) {
 				console.error('Error logout', error);
-			}
-			finally {
-				this.clearAuth();
-				await navigateTo('/auth/login');
 			}
 		},
 	},

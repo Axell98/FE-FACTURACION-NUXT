@@ -30,7 +30,7 @@ await getMenuAuth();
 			class="px-2"
 		>
 			<li class="mb-1">
-				<p class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-green-600 hover:bg-gray-100">
+				<p class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-primary hover:bg-teal-100 dark:hover:bg-cyan-900">
 					<UIcon
 						v-if="menu.icono"
 						:name="menu.icono"

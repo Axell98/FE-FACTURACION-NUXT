@@ -7,18 +7,21 @@ defineProps<{
 </script>
 
 <template>
-	<ul class="ms-3 text-sm">
+	<ul class="ms-1 text-sm">
 		<li
 			v-for="(item, i) in menu"
 			:key="i"
 		>
-			<p class="flex items-center py-1">
+			<NuxtLink
+				:to="item.url"
+				class="flex items-center py-1.5 hover:text-primary"
+			>
 				<UIcon
 					name="i-lucide-dot"
 					class="size-6"
 				/>
-				<span>{{ item.nombre }}</span>
-			</p>
+				<span class="ms-2">{{ item.nombre }}</span>
+			</NuxtLink>
 		</li>
 	</ul>
 </template>

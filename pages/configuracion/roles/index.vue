@@ -6,7 +6,7 @@ definePageMeta({
 });
 
 useHead({
-	title: 'Usuarios',
+	title: 'Roles',
 });
 
 const apiUsuarios = useApiUsuarios();
@@ -31,8 +31,8 @@ const items = ref([
 		label: 'Configuración',
 	},
 	{
-		label: 'Usuarios',
-		to: '/configuracion/usuarios',
+		label: 'Roles',
+		to: '/configuracion/roles',
 	},
 ]);
 
@@ -71,7 +71,7 @@ const columnFilters = ref([
 	<LayoutBaseLayout>
 		<div class="flex items-center justify-between">
 			<h1 class="font-bold">
-				USUARIOS
+				ROLES
 			</h1>
 			<UBreadcrumb :items="items" />
 		</div>
@@ -80,12 +80,12 @@ const columnFilters = ref([
 				<UInput
 					:model-value="table?.tableApi?.getColumn('nombre')?.getFilterValue() as string"
 					class="max-w-sm"
-					placeholder="Buscar usuario..."
+					placeholder="Buscar rol..."
 					size="lg"
 					@update:model-value="table?.tableApi?.getColumn('nombre')?.setFilterValue($event)"
 				/>
 				<UButton
-					label="Nuevo usuario"
+					label="Nuevo rol"
 					size="lg"
 				/>
 			</div>

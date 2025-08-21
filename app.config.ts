@@ -12,7 +12,7 @@ export default defineAppConfig({
 		},
 		table: {
 			slots: {
-				thead: 'relative bg-[#f9fafb] dark:bg-[#252630]',
+				thead: 'relative bg-[#f9fafb] dark:bg-slate-950',
 			},
 		},
 		formField: {

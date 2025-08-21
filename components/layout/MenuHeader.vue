@@ -6,7 +6,7 @@ const itemsProfile = ref(
 	[
 		[
 			{
-				label: 'Axel Valle',
+				label: authStore.user?.nombre,
 				slot: 'account',
 				disabled: true,
 			},
@@ -114,7 +114,7 @@ const changeThemeColor = () => {
 							{{ item.label }}
 						</p>
 						<p class="truncate font-medium text-sm mt-1">
-							Admin del sistema
+							{{ authStore.user?.roles.display_name }}
 						</p>
 					</div>
 				</template>

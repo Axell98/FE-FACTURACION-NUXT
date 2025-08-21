@@ -30,8 +30,10 @@ const submitLogin = async () => {
 		usuario: credentials.usuario,
 		password: credentials.password,
 	});
-	errorMessage.value = message;
-	loading.value = false;
+	if (message) {
+		errorMessage.value = message;
+		loading.value = false;
+	}
 };
 </script>
 
@@ -40,13 +42,16 @@ const submitLogin = async () => {
 		<div class="bg-teal-500 w-full" />
 		<div class="w-full max-w-[480px] flex flex-col items-center justify-center">
 			<div class="w-[68%]">
+				<h1 class="mb-4 text-2xl font-bold">
+					Iniciar sesión
+				</h1>
 				<UAlert
 					v-show="Boolean(errorMessage.length)"
 					color="error"
 					variant="subtle"
 					:description="errorMessage"
 					icon="i-lucide-circle-x"
-					class="my-3"
+					class="my-4"
 				/>
 				<UForm
 					class="flex flex-col space-y-5"
@@ -93,11 +98,14 @@ const submitLogin = async () => {
 					<UButton
 						label="Ingresar"
 						type="submit"
-						class="py-2 mt-1"
+						class="py-2.5 mt-1"
 						:loading="loading"
 						block
 					/>
 				</UForm>
+			</div>
+			<div class="absolute bottom-2">
+				<span class="text-sm">Copyright @2026</span>
 			</div>
 		</div>
 	</section>
