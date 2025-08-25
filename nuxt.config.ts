@@ -32,7 +32,7 @@ export default defineNuxtConfig({
 	},
 	googleFonts: {
 		families: {
-			Outfit: [400, 600],
+			Lexend: [400, 600],
 		},
 	},
 	veeValidate: {

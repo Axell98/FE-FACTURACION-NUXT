@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { RoleData } from '~/domain/interfaces/roles.interface';
+import type { RoleData, PermissionData } from '~/domain/interfaces/roles.interface';
 
 definePageMeta({
 	middleware: 'auth',
@@ -11,14 +11,23 @@ useHead({
 
 const apiRoles = useApiRoles();
 
-const { data, pending } = await apiRoles.list();
+const { data, pending } = await apiRoles.getRoles();
+const { data: permissions } = await apiRoles.getPermissions();
 
 const table = useTemplateRef('table');
+const showModal = ref<boolean>(false);
 const listadoRoles = ref<RoleData[]>([]);
+const listadoPermisos = ref<PermissionData[]>([]);
 
 watch(data, (response) => {
 	if (response?.status) {
 		listadoRoles.value = response.data;
+	}
+});
+
+watch(permissions, (response) => {
+	if (response?.status) {
+		listadoPermisos.value = response.data;
 	}
 });
 
@@ -79,6 +88,7 @@ const columnFilters = ref([
 				<UButton
 					label="Nuevo rol"
 					size="lg"
+					@click="showModal = true"
 				/>
 			</div>
 			<div v-if="pending">
@@ -94,5 +104,14 @@ const columnFilters = ref([
 				empty="No existen registros"
 			/>
 		</div>
+		<UModal
+			v-model:open="showModal"
+			title="Nuevo rol"
+			description=""
+		>
+			<template #body>
+				<FormsFormRole />
+			</template>
+		</UModal>
 	</LayoutBaseLayout>
 </template>

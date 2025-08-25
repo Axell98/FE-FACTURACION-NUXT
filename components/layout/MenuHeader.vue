@@ -93,6 +93,8 @@ const changeThemeColor = () => {
 				:ui="{
 					item: 'py-2.5 px-2',
 					content: 'min-w-50 p-1 shadow-lg',
+					itemLeadingIcon: 'size-4.5',
+					itemLabel: 'ms-1.5',
 				}"
 			>
 				<UButton
@@ -110,7 +112,7 @@ const changeThemeColor = () => {
 				</UButton>
 				<template #account="{ item }">
 					<div class="text-left">
-						<p class="font-bold text-[14px] uppercase">
+						<p class="font-bold text-[13px] uppercase">
 							{{ item.label }}
 						</p>
 						<p class="truncate font-medium text-sm mt-1">

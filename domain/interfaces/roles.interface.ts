@@ -6,3 +6,10 @@ export interface RoleData {
 	created_at: string;
 	updated_at: string;
 }
+
+export interface PermissionData {
+	id: number;
+	name: string;
+	guard_name: string;
+	display_name: string | null;
+}
