@@ -16,7 +16,7 @@ const itemsProfile = ref(
 				label: 'Mi perfil',
 				icon: 'i-lucide-user',
 				onSelect() {
-					navigateTo('/configuracion/perfil');
+					navigateTo('/configuracion/profile');
 				},
 			},
 			{
