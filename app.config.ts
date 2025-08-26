@@ -30,7 +30,7 @@ export default defineAppConfig({
 		},
 		input: {
 			slots: {
-				base: '!py-[7px]',
+				base: '!py-[8px]',
 			},
 		},
 	},

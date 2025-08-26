@@ -26,7 +26,13 @@ const submitProfile = async () => {
 <template>
 	<UCard class="w-full">
 		<template #header>
-			<span class="font-bold">Información del usuario</span>
+			<div class="flex items-center gap-1.5">
+				<UIcon
+					name="i-lucide-user"
+					class="size-5"
+				/>
+				<span class="font-bold">Información del usuario</span>
+			</div>
 		</template>
 		<UForm
 			:schema="schemaProfile"
@@ -67,24 +73,30 @@ const submitProfile = async () => {
 					</UFormField>
 				</div>
 			</div>
-			<UFormField
-				label="Celular:"
-				name="celular"
-			>
-				<UInput
-					v-model="formProfile.celular"
-					class="w-full"
-				/>
-			</UFormField>
-			<UFormField
-				label="Email:"
-				name="email"
-			>
-				<UInput
-					v-model="formProfile.email"
-					class="w-full"
-				/>
-			</UFormField>
+			<div class="flex w-full gap-5">
+				<div class="w-full">
+					<UFormField
+						label="Celular:"
+						name="celular"
+					>
+						<UInput
+							v-model="formProfile.celular"
+							class="w-full"
+						/>
+					</UFormField>
+				</div>
+				<div class="w-full">
+					<UFormField
+						label="Email:"
+						name="email"
+					>
+						<UInput
+							v-model="formProfile.email"
+							class="w-full"
+						/>
+					</UFormField>
+				</div>
+			</div>
 			<UFormField
 				label="Dirección:"
 				name="direccion"

@@ -73,7 +73,7 @@ const submitLogin = async () => {
 							icon="i-lucide-user"
 							placeholder="Ingresar usuario"
 							:ui="{
-								base: 'py-[9px]',
+								base: '!py-[9px]',
 							}"
 						/>
 					</UFormField>
@@ -91,12 +91,12 @@ const submitLogin = async () => {
 							icon="i-lucide-lock-keyhole"
 							placeholder="Ingresar contraseña"
 							:ui="{
-								base: 'py-[9px]',
+								base: '!py-[9px]',
 							}"
 						/>
 					</UFormField>
 					<UButton
-						:label="loading ? 'Verificando...' : 'Ingresar'"
+						:label="loading ? 'Validando...' : 'Ingresar'"
 						type="submit"
 						class="py-2 mt-1"
 						:loading="loading"
@@ -105,7 +105,7 @@ const submitLogin = async () => {
 				</UForm>
 			</div>
 			<div class="absolute bottom-2">
-				<span class="text-sm">Copyright @2026</span>
+				<span class="text-sm">Copyright @2025</span>
 			</div>
 		</div>
 	</section>
