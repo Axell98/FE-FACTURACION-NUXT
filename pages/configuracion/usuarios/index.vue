@@ -50,7 +50,11 @@ const columnsTable = [
 	},
 	{
 		accessorKey: 'nombre',
-		header: 'Nombre',
+		header: 'Nombres y Apellidos',
+	},
+	{
+		accessorKey: 'roles.display_name',
+		header: 'Rol del sistema',
 	},
 	{
 		accessorKey: 'activo',
@@ -66,6 +70,9 @@ const columnsTable = [
 	{
 		accessorKey: 'created_at',
 		header: 'Fec. registro',
+	},
+	{
+		id: 'action',
 	},
 ];
 
@@ -103,15 +110,44 @@ const columnFilters = ref([
 			<div v-if="pending">
 				<BaseLoading />
 			</div>
-			<UTable
+			<div
 				v-else
-				ref="table"
-				v-model:column-filters="columnFilters"
-				:data="listadoUsuarios"
-				:columns="columnsTable"
-				class="flex-1 mt-2"
-				empty="No existen registros"
-			/>
+				class="w-full"
+			>
+				<UTable
+					ref="table"
+					v-model:column-filters="columnFilters"
+					:data="listadoUsuarios"
+					:columns="columnsTable"
+					class="flex-1 mt-2"
+					empty="No existen registros"
+				>
+					<template #action-cell="{ row }">
+						<div class="flex gap-3">
+							<UButton
+								variant="subtle"
+								size="md"
+								color="info"
+								icon="i-lucide-pencil"
+								:ui="{
+									leadingIcon: 'size-4',
+								}"
+								title="Editar"
+							/>
+							<UButton
+								variant="subtle"
+								size="md"
+								color="error"
+								icon="i-lucide-trash"
+								:ui="{
+									leadingIcon: 'size-4',
+								}"
+								title="Eliminar"
+							/>
+						</div>
+					</template>
+				</UTable>
+			</div>
 		</div>
 		<UDrawer
 			v-model:open="showDrawerPanel"

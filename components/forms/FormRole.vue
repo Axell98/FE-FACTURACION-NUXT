@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 const roleName = ref<string>('');
+const items = ref(['Home', 'Inventario', 'Configuracion']);
+const value = ref();
 </script>
 
 <template>
@@ -11,5 +13,12 @@ const roleName = ref<string>('');
 				placeholder="Ejm: Admin del sistema"
 			/>
 		</UFormField>
+		<div class="w-full mt-3">
+			<label class="text-sm">Seleccionar permisos:</label>
+			<UCheckboxGroup
+				v-model="value"
+				:items="items"
+			/>
+		</div>
 	</div>
 </template>
