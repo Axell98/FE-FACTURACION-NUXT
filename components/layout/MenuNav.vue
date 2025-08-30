@@ -5,7 +5,7 @@ await getMenuAuth();
 </script>
 
 <template>
-	<nav class="fixed top-0 left-0 z-20 w-[235px] min-h-screen border-r border-gray-200 dark:border-gray-700">
+	<nav class="fixed top-0 left-0 z-20 w-[235px] min-h-screen border-r border-gray-200 dark:border-gray-800">
 		<div class="w-full flex items-center h-[var(--height-header)] mb-2 gap-1 px-3">
 			<img
 				src="https://riaac.com/img/icons/logo2.png"
@@ -50,6 +50,7 @@ await getMenuAuth();
 					v-else
 					:to="menu.url"
 					class="flex items-center text-sm h-[42px] px-2 rounded-sm gap-2.5 hover:cursor-pointer hover:text-primary hover:bg-teal-100 dark:hover:bg-cyan-900"
+					active-class="text-primary bg-teal-100  dark:bg-cyan-900"
 				>
 					<UIcon
 						v-if="menu.icono"

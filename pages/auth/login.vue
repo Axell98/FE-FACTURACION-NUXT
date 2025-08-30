@@ -74,6 +74,7 @@ const submitLogin = async () => {
 							placeholder="Ingresar usuario"
 							:ui="{
 								base: '!py-[9px]',
+								leadingIcon: 'size-4.5',
 							}"
 						/>
 					</UFormField>
@@ -92,11 +93,12 @@ const submitLogin = async () => {
 							placeholder="Ingresar contraseña"
 							:ui="{
 								base: '!py-[9px]',
+								leadingIcon: 'size-4.5',
 							}"
 						/>
 					</UFormField>
 					<UButton
-						:label="loading ? 'Validando...' : 'Ingresar'"
+						:label="loading ? 'Verificando...' : 'Ingresar'"
 						type="submit"
 						class="py-2 mt-1"
 						:loading="loading"
@@ -105,7 +107,7 @@ const submitLogin = async () => {
 				</UForm>
 			</div>
 			<div class="absolute bottom-2">
-				<span class="text-sm">Copyright @2025</span>
+				<span class="text-sm">Copyright © 2025</span>
 			</div>
 		</div>
 	</section>

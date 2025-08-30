@@ -7,13 +7,14 @@ defineProps<{
 </script>
 
 <template>
-	<ul class="ms-1 text-sm">
+	<ul class="ms-1 text-xs">
 		<li
 			v-for="(item, i) in menu"
 			:key="i"
 		>
 			<NuxtLink
 				:to="item.url"
+				active-class="text-primary"
 				class="flex items-center py-1.5 hover:text-primary"
 			>
 				<UIcon
