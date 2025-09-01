@@ -54,17 +54,14 @@ const tabsItem = ref([
 	{
 		label: 'Información General',
 		icon: 'i-lucide-user',
-		content: 'This is the account content.',
 	},
 	{
 		label: 'Series & Correlativos',
 		icon: 'i-lucide-lock',
-		content: 'This is the password content.',
 	},
 	{
 		label: 'Logos',
 		icon: 'i-lucide-lock',
-		content: 'This is the password content.',
 	},
 ]);
 </script>
@@ -108,14 +105,15 @@ const tabsItem = ref([
 			title="Agregar sucursal"
 			description=""
 			:ui="{
-				content: 'lg:max-w-[750px]',
+				content: 'lg:max-w-[780px]',
 			}"
 		>
 			<template #body>
 				<UTabs
 					:items="tabsItem"
-					size="lg"
-					class="w-full "
+					size="md"
+					variant="pill"
+					class="w-full"
 				/>
 			</template>
 		</UModal>

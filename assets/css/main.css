@@ -4,9 +4,10 @@
 :root {
     --ui-radius: 0.2rem;
     --height-header: 56px;
+    --text-sm: 13.5px;
 }
 @layer base {
     body {
-        font-family: 'Lexend', sans-serif;
+        font-family: 'Parkinsans', sans-serif;
     }
 }

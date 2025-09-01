@@ -73,7 +73,7 @@ const submitLogin = async () => {
 							icon="i-lucide-user"
 							placeholder="Ingresar usuario"
 							:ui="{
-								base: '!py-[9px]',
+								base: '!py-[10px]',
 								leadingIcon: 'size-4.5',
 							}"
 						/>
@@ -92,7 +92,7 @@ const submitLogin = async () => {
 							icon="i-lucide-lock-keyhole"
 							placeholder="Ingresar contraseña"
 							:ui="{
-								base: '!py-[9px]',
+								base: '!py-[10px]',
 								leadingIcon: 'size-4.5',
 							}"
 						/>
