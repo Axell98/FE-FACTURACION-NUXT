@@ -53,15 +53,18 @@ const columnFilters = ref([
 const tabsItem = ref([
 	{
 		label: 'Información General',
-		icon: 'i-lucide-user',
+		icon: 'i-lucide-info',
+		slot: 'information' as const,
 	},
 	{
 		label: 'Series & Correlativos',
-		icon: 'i-lucide-lock',
+		icon: 'i-lucide-list-ordered',
+		slot: 'series' as const,
 	},
 	{
 		label: 'Logos',
-		icon: 'i-lucide-lock',
+		icon: 'i-lucide-image',
+		slot: 'image' as const,
 	},
 ]);
 </script>
@@ -105,16 +108,23 @@ const tabsItem = ref([
 			title="Agregar sucursal"
 			description=""
 			:ui="{
-				content: 'lg:max-w-[780px]',
+				content: 'lg:max-w-[810px]',
 			}"
 		>
 			<template #body>
 				<UTabs
-					:items="tabsItem"
-					size="md"
+					size="lg"
 					variant="pill"
-					class="w-full"
-				/>
+					class="w-full gap-4"
+					:ui="{
+						leadingIcon: 'size-4',
+					}"
+					:items="tabsItem"
+				>
+					<template #information>
+						<SucursalTabFormGeneral />
+					</template>
+				</UTabs>
 			</template>
 		</UModal>
 	</LayoutBaseLayout>

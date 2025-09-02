@@ -1,7 +1,7 @@
 export default defineAppConfig({
 	ui: {
 		colors: {
-			primary: 'teal',
+			primary: 'cyan',
 		},
 		button: {
 			slots: {
@@ -41,40 +41,11 @@ export default defineAppConfig({
 		},
 		tabs: {
 			variants: {
-				compoundVariants: [
-					{
-						color: 'primary',
-						variant: 'pill',
-						class: {
-							indicator: 'bg-primary',
-							trigger: 'data-[state=active]:text-inverted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary flex-1',
-						},
+				variant: {
+					pill: {
+						list: 'light:bg-[#EEEEEF] rounded-lg',
 					},
-					{
-						color: 'neutral',
-						variant: 'pill',
-						class: {
-							indicator: 'bg-inverted',
-							trigger: 'data-[state=active]:text-inverted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-inverted flex-1',
-						},
-					},
-					{
-						color: 'primary',
-						variant: 'link',
-						class: {
-							indicator: 'bg-primary',
-							trigger: 'data-[state=active]:text-primary focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary flex-1',
-						},
-					},
-					{
-						color: 'neutral',
-						variant: 'link',
-						class: {
-							indicator: 'bg-inverted',
-							trigger: 'data-[state=active]:text-highlighted focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-inverted flex-1',
-						},
-					},
-				],
+				},
 			},
 		},
 	},
