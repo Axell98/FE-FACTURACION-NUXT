@@ -1,0 +1,31 @@
+<script lang="ts" setup>
+defineProps<{
+	id: string;
+	label: string;
+	placeholder?: string;
+}>();
+const isFocused = ref<boolean>(false);
+</script>
+
+<template>
+	<div
+		class="border box-border rounded-lg px-1 pt-2 flex flex-col"
+		:class="{
+			'border-accented': !isFocused,
+			'outline outline-primary border-primary': isFocused,
+		}"
+	>
+		<label
+			:for="id"
+			class="text-xs ms-2 light:text-gray-500"
+		>{{ label }}</label>
+		<UInput
+			:id="id"
+			size="md"
+			variant="none"
+			:placeholder="placeholder"
+			@focus="isFocused = true"
+			@blur="isFocused = false"
+		/>
+	</div>
+</template>

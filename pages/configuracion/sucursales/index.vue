@@ -81,9 +81,10 @@ const tabsItem = ref([
 			<div class="flex justify-between px-0.5 py-2">
 				<UInput
 					:model-value="table?.tableApi?.getColumn('nombre')?.getFilterValue() as string"
-					class="max-w-sm"
-					placeholder="Buscar usuario..."
+					placeholder="Buscar sucursal..."
 					size="lg"
+					icon="i-lucide-search"
+					class="max-w-sm"
 					@update:model-value="table?.tableApi?.getColumn('nombre')?.setFilterValue($event)"
 				/>
 				<UButton
@@ -110,6 +111,7 @@ const tabsItem = ref([
 			:ui="{
 				content: 'lg:max-w-[810px]',
 			}"
+			:dismissible="false"
 		>
 			<template #body>
 				<UTabs
@@ -124,7 +126,27 @@ const tabsItem = ref([
 					<template #information>
 						<SucursalTabFormGeneral />
 					</template>
+					<template #series>
+						<SucursalTabFormSeries />
+					</template>
 				</UTabs>
+			</template>
+			<template #footer>
+				<div class="w-full flex justify-end gap-3">
+					<UButton
+						label="Cancelar"
+						color="neutral"
+						variant="soft"
+						size="lg"
+						@click="showModal = false"
+					/>
+					<UButton
+						label="Guardar"
+						color="primary"
+						variant="solid"
+						size="lg"
+					/>
+				</div>
 			</template>
 		</UModal>
 	</LayoutBaseLayout>
