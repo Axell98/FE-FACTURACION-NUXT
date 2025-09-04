@@ -100,7 +100,7 @@ const submitLogin = async () => {
 					<UButton
 						:label="loading ? 'Verificando' : 'Ingresar'"
 						type="submit"
-						class="py-2.5 mt-1"
+						class="py-2 mt-1"
 						:loading="loading"
 						block
 					/>

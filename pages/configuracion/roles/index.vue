@@ -15,7 +15,7 @@ const { data, pending } = await apiRoles.getRoles();
 const { data: permissions } = await apiRoles.getPermissions();
 
 const table = useTemplateRef('table');
-const showModal = ref<boolean>(false);
+const showDrawer = ref<boolean>(false);
 const listadoRoles = ref<RoleData[]>([]);
 const listadoPermisos = ref<PermissionData[]>([]);
 
@@ -83,12 +83,14 @@ const columnFilters = ref([
 					class="max-w-sm"
 					placeholder="Buscar rol..."
 					size="lg"
+					icon="i-lucide-search"
 					@update:model-value="table?.tableApi?.getColumn('display_name')?.setFilterValue($event)"
 				/>
 				<UButton
 					label="Nuevo rol"
 					size="lg"
-					@click="showModal = true"
+					icon="i-lucide-circle-plus"
+					@click="showDrawer = true"
 				/>
 			</div>
 			<div v-if="pending">
@@ -104,14 +106,26 @@ const columnFilters = ref([
 				empty="No existen registros"
 			/>
 		</div>
-		<UModal
-			v-model:open="showModal"
-			title="Nuevo rol"
-			description=""
+		<UDrawer
+			v-model:open="showDrawer"
+			:dismissible="false"
+			direction="right"
+			:ui="{ header: 'flex items-center justify-between' }"
 		>
+			<template #header>
+				<h2 class="text-highlighted font-semibold">
+					NUEVO ROL
+				</h2>
+				<UButton
+					color="neutral"
+					variant="ghost"
+					icon="i-lucide-x"
+					@click="showDrawer = false"
+				/>
+			</template>
 			<template #body>
 				<FormsFormRole />
 			</template>
-		</UModal>
+		</UDrawer>
 	</LayoutBaseLayout>
 </template>

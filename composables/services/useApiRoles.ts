@@ -19,7 +19,15 @@ const useApiRoles = () => {
 		return response;
 	};
 
-	return { getRoles, getPermissions };
+	const saveRoles = async () => {
+		const response = await useLazyFetch<DataResponse<any>>(`${config.public.apiURL}/configuracion/roles`, {
+			method: 'POST',
+			headers,
+		});
+		return response;
+	};
+
+	return { getRoles, saveRoles, getPermissions };
 };
 
 export default useApiRoles;

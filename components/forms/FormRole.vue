@@ -5,7 +5,7 @@ const value = ref();
 </script>
 
 <template>
-	<div class="w-full">
+	<div class="w-full min-w-[330px] pe-2">
 		<UFormField label="Nombre del rol:">
 			<UInput
 				v-model="roleName"
