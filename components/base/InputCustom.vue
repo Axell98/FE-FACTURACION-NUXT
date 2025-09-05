@@ -9,20 +9,21 @@ const isFocused = ref<boolean>(false);
 
 <template>
 	<div
-		class="border box-border rounded-lg px-1 pt-2 flex flex-col"
+		class="border box-border rounded-lg px-1 pt-2 pb-1 flex flex-col"
 		:class="{
 			'border-accented': !isFocused,
-			'outline outline-primary border-primary': isFocused,
+			'outline-1 outline-primary border-primary': isFocused,
 		}"
 	>
 		<label
 			:for="id"
-			class="text-xs ms-2 light:text-gray-500"
+			class="text-xs ms-2.5 light:text-gray-500"
 		>{{ label }}</label>
 		<UInput
 			:id="id"
 			size="md"
 			variant="none"
+			class="w-full !h-[28px]"
 			:placeholder="placeholder"
 			@focus="isFocused = true"
 			@blur="isFocused = false"

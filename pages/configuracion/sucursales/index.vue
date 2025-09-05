@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { DataDepartamentos } from '~/domain/interfaces/datos.interface';
+
 definePageMeta({
 	middleware: 'auth',
 });
@@ -7,9 +9,24 @@ useHead({
 	title: 'Sucursales',
 });
 
+const apiDatosSistema = useApiDatos();
+
+const { data: dataUbigeo } = await apiDatosSistema.getUbigeo();
+
 const table = useTemplateRef('table');
-const showModal = ref<boolean>(true);
+const showModal = ref<boolean>(false);
+const listadoUbigeo = ref<DataDepartamentos[]>([]);
 const listadoSucursales = ref([]);
+
+watch(dataUbigeo, (response) => {
+	if (response?.status) {
+		listadoUbigeo.value = response.data.map(dept => ({
+			label: dept.departamento_nombre,
+			value: dept.departamento_id,
+			provincias: dept.provincias,
+		}));
+	}
+});
 
 const items = ref([
 	{
@@ -109,7 +126,7 @@ const tabsItem = ref([
 			title="Agregar sucursal"
 			description=""
 			:ui="{
-				content: 'lg:max-w-[810px]',
+				content: 'lg:max-w-[800px]',
 			}"
 			:dismissible="false"
 		>
@@ -124,7 +141,9 @@ const tabsItem = ref([
 					:items="tabsItem"
 				>
 					<template #information>
-						<SucursalTabFormGeneral />
+						<SucursalTabFormGeneral
+							:data-departamentos="listadoUbigeo"
+						/>
 					</template>
 					<template #series>
 						<SucursalTabFormSeries />
@@ -138,6 +157,7 @@ const tabsItem = ref([
 						color="neutral"
 						variant="soft"
 						size="lg"
+						icon="i-lucide-circle-x"
 						@click="showModal = false"
 					/>
 					<UButton
@@ -145,6 +165,7 @@ const tabsItem = ref([
 						color="primary"
 						variant="solid"
 						size="lg"
+						icon="i-lucide-save"
 					/>
 				</div>
 			</template>

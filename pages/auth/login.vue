@@ -39,8 +39,8 @@ const submitLogin = async () => {
 
 <template>
 	<section class="w-full flex min-h-screen">
-		<div class="bg-teal-500 w-full" />
-		<div class="w-full max-w-[450px] flex flex-col items-center justify-center">
+		<div class="bg-blue-700 w-full" />
+		<div class="w-full max-w-[430px] flex flex-col items-center justify-center">
 			<div class="w-[70%]">
 				<h1 class="mb-4 text-2xl font-bold">
 					Iniciar sesión
@@ -73,7 +73,7 @@ const submitLogin = async () => {
 							icon="i-lucide-user"
 							placeholder="Ingresar usuario"
 							:ui="{
-								base: '!py-[10px]',
+								base: '!py-[9px]',
 								leadingIcon: 'size-4.5',
 							}"
 						/>
@@ -92,7 +92,7 @@ const submitLogin = async () => {
 							icon="i-lucide-lock-keyhole"
 							placeholder="Ingresar contraseña"
 							:ui="{
-								base: '!py-[10px]',
+								base: '!py-[9px]',
 								leadingIcon: 'size-4.5',
 							}"
 						/>

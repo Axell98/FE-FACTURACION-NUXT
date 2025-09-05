@@ -1,7 +1,7 @@
 export default defineAppConfig({
 	ui: {
 		colors: {
-			primary: 'cyan',
+			primary: 'blue',
 		},
 		button: {
 			slots: {
@@ -43,7 +43,7 @@ export default defineAppConfig({
 			variants: {
 				variant: {
 					pill: {
-						list: 'light:bg-[#EEEEEF] rounded-lg',
+						list: 'rounded-lg',
 					},
 				},
 			},

@@ -1,28 +1,49 @@
 <script lang="ts" setup>
+import type { DataDepartamentos, DataProvincias, DataDistritos } from '~/domain/interfaces/datos.interface';
+
+const props = defineProps<{
+	dataDepartamentos: DataDepartamentos[];
+}>();
+
+const dataProvincias = ref<DataProvincias[]>([]);
+const dataDistritos = ref<DataDistritos[]>([]);
+
+const selectDept = ref<string>('');
+const selectProv = ref<string>('');
 const sucursalMain = ref<boolean>(false);
 
-const items = ref([
-	{
-		label: 'Backlog',
-		value: 'backlog',
-	},
-	{
-		label: 'Todo',
-		value: 'todo',
-	},
-	{
-		label: 'In Progress',
-		value: 'in_progress',
-	},
-	{
-		label: 'Done',
-		value: 'done',
-	},
-]);
+const getDeptIndex = computed(() => {
+	return props.dataDepartamentos.findIndex(item => item.value === selectDept.value);
+});
+
+const getProvIndex = computed(() => {
+	return dataProvincias.value.findIndex(item => item.value === selectProv.value);
+});
+
+const changeDepartamento = (value: string) => {
+	selectDept.value = value;
+	const indexDept = getDeptIndex.value;
+	const provincias = props.dataDepartamentos[indexDept].provincias;
+	dataProvincias.value = provincias.map((prov: Record<string, string>) => ({
+		label: prov.provincia_nombre,
+		value: prov.provincia_nombre,
+		distritos: prov.distritos,
+	}));
+	dataDistritos.value = [];
+};
+const changeProvincia = (value: string) => {
+	selectProv.value = value;
+	const indexProv = getProvIndex.value;
+	const distritos = dataProvincias.value[indexProv].distritos;
+	dataDistritos.value = distritos.map((dist: Record<string, string>) => ({
+		label: dist.distrito_nombre,
+		value: dist.distrito_id,
+	}));
+};
 </script>
 
 <template>
-	<div class="grid grid-cols-2 gap-4 text-sm px-1">
+	<div class="grid grid-cols-2 gap-3.5 text-sm px-1">
 		<BaseInputCustom
 			id="suc_codigo"
 			label="Código sucursal sunat"
@@ -35,7 +56,7 @@ const items = ref([
 		/>
 		<BaseInputCustom
 			id="suc_celular"
-			label="Celular || Teléfono:"
+			label="Celular - Teléfono:"
 			placeholder="Ingresa un número de teléfono"
 		/>
 		<BaseInputCustom
@@ -50,23 +71,25 @@ const items = ref([
 				placeholder="Ingresa una dirección"
 			/>
 		</div>
-		<div class="col-span-2 grid grid-cols-3 gap-x-4">
+		<div class="col-span-2 grid grid-cols-3 gap-x-3.5">
 			<BaseSelectCustom
 				id="suc_departamento"
 				label="Departamento:"
-				:items="items"
+				:items="dataDepartamentos"
 				placeholder="Seleccionar una opción"
+				@change="changeDepartamento"
 			/>
 			<BaseSelectCustom
 				id="suc_provincia"
 				label="Provincia:"
-				:items="items"
+				:items="dataProvincias"
 				placeholder="Seleccionar una opción"
+				@change="changeProvincia"
 			/>
 			<BaseSelectCustom
 				id="suc_distrito"
 				label="Distrito:"
-				:items="items"
+				:items="dataDistritos"
 				placeholder="Seleccionar una opción"
 			/>
 		</div>
