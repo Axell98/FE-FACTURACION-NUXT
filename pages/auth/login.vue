@@ -39,7 +39,7 @@ const submitLogin = async () => {
 
 <template>
 	<section class="w-full flex min-h-screen">
-		<div class="bg-blue-700 w-full" />
+		<div class="bg-primary w-full" />
 		<div class="w-full max-w-[430px] flex flex-col items-center justify-center">
 			<div class="w-[70%]">
 				<h1 class="mb-4 text-2xl font-bold">

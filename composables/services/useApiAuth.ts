@@ -1,9 +1,12 @@
+import type { DataResponse } from '~/domain/interfaces/response.interface';
+import type { UserStoreData, UserData } from '~/domain/interfaces/user.interface';
+
 const useApiAuth = () => {
 	const config = useRuntimeConfig();
 	const headers = useHeaders().value;
 
-	const login = async (credentials: Record<string, unknown>) => {
-		return $fetch('/auth/login', {
+	const login = async (credentials: Record<string, string>) => {
+		return $fetch<DataResponse<UserStoreData>>('/auth/login', {
 			baseURL: config.public.apiURL,
 			method: 'POST',
 			body: credentials,
@@ -12,7 +15,7 @@ const useApiAuth = () => {
 	};
 
 	const profile = async () => {
-		return $fetch('/auth/profile', {
+		return $fetch<DataResponse<UserData>>('/auth/profile', {
 			baseURL: config.public.apiURL,
 			method: 'GET',
 			headers,

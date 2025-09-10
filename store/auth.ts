@@ -1,20 +1,14 @@
 import { defineStore } from 'pinia';
-import type { UserData } from '~/domain/interfaces/auth.interface';
-
-interface AuthState {
-	user: UserData | null;
-	token: string | null;
-	loading: boolean;
-}
+import type { UserStoreData } from '~/domain/interfaces/user.interface';
 
 export const useAuthStore = defineStore('auth', {
-	state: (): AuthState => ({
-		user: null,
+	state: (): UserStoreData => ({
 		token: import.meta.client ? localStorage.getItem('tokenAuth') : null,
+		userData: null,
 		loading: true,
 	}),
 	getters: {
-		isAuthenticated: (state): boolean => !!state.token && !!state.user,
+		isAuthenticated: (state): boolean => !!state.token && !!state.userData,
 	},
 	actions: {
 		setToken(token: string) {
@@ -22,63 +16,56 @@ export const useAuthStore = defineStore('auth', {
 			localStorage.setItem('tokenAuth', token);
 		},
 		clearAuth() {
-			this.user = null;
 			this.token = null;
+			this.userData = null;
 			localStorage.removeItem('tokenAuth');
-			localStorage.removeItem('expiresIn');
 			localStorage.removeItem('menuAuth');
 		},
-		async login(credentials: Record<string, unknown>) {
+		async login(credentials: Record<string, string>) {
 			const { login } = useApiAuth();
 			try {
-				const response: any = await login(credentials);
-				const { accessToken, userData, expiresIn } = response.data;
-				this.user = userData;
-				this.setToken(accessToken);
-				localStorage.setItem('expiresIn', expiresIn);
+				const response = await login(credentials);
+				this.userData = response.data.userData;
+				this.setToken(response.data.token || '');
 				await navigateTo('/home');
 			}
 			catch (error: any) {
 				this.clearAuth();
-				console.error('Error login', error);
-				return error?.data.message || 'Server error';
-			}
-		},
-		async validateAuth() {
-			if (!this.token && import.meta.client) {
-				this.token = localStorage.getItem('tokenAuth');
-			}
-
-			if (!this.token) {
-				this.loading = false;
-				return false;
-			}
-			try {
-				const { profile } = useApiAuth();
-				const response: any = await profile();
-				this.user = response.data;
-				return true;
-			}
-			catch (error) {
-				console.error('Error en validateAuth', error);
-				this.clearAuth();
-				await navigateTo('/auth/login');
-				return false;
+				return error?.data.message || 'Se ha producido un error';
 			}
 			finally {
 				this.loading = false;
 			}
 		},
-		async logout() {
-			const { logout } = useApiAuth();
+		async validateAuth() {
+			if (!this.token && import.meta.client) {
+				this.token = localStorage.getItem('tokenAuth');
+				if (!this.token) {
+					this.loading = false;
+					return false;
+				}
+			}
+			let checkAuth = false;
+			const { profile } = useApiAuth();
 			try {
-				this.clearAuth();
-				await navigateTo('/auth/login');
-				await logout();
+				const response = await profile();
+				this.userData = response.data;
+				checkAuth = true;
 			}
 			catch (error) {
-				console.error('Error logout', error);
+				console.error('Error en validateAuth', error);
+				this.clearAuth();
+				await navigateTo('/auth/login');
 			}
+			finally {
+				this.loading = false;
+			}
+			return checkAuth;
+		},
+		async logout() {
+			useApiAuth().logout();
+			this.clearAuth();
+			await navigateTo('/auth/login');
 		},
 	},
 });
