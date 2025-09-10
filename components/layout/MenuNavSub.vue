@@ -7,7 +7,7 @@ defineProps<{
 </script>
 
 <template>
-	<ul class="ms-1 text-sm">
+	<ul class="ms-1 text-xs">
 		<li
 			v-for="(item, i) in menu"
 			:key="i"

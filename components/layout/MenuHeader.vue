@@ -2,11 +2,13 @@
 const authStore = useAuthStore();
 const colorMode = useColorMode();
 
+const isLargeScreen = useMediaQuery('(min-width: 800px)');
+
 const itemsProfile = ref(
 	[
 		[
 			{
-				label: authStore.user?.nombre,
+				label: authStore.userData?.nombre,
 				slot: 'account',
 				disabled: true,
 			},
@@ -41,7 +43,13 @@ const changeThemeColor = () => {
 </script>
 
 <template>
-	<header class="fixed top-0 z-20 left-[235px] w-[calc(100%_-_235px)] h-[var(--height-header)] flex items-center px-2 border-b border-gray-200 dark:border-gray-800">
+	<header
+		class="fixed top-0 z-20 h-[var(--height-header)] flex items-center px-2 border-b border-gray-200 dark:border-gray-800"
+		:class="{
+			'left-[235px] w-[calc(100%_-_235px)]': isLargeScreen,
+			'left-0 w-full': !isLargeScreen,
+		}"
+	>
 		<div class="flex items-center gap-4">
 			<UButton
 				color="neutral"
@@ -116,7 +124,7 @@ const changeThemeColor = () => {
 							{{ item.label }}
 						</p>
 						<p class="truncate font-medium text-sm mt-1">
-							{{ authStore.user?.roles.display_name }}
+							{{ authStore.userData?.roles.display_name }}
 						</p>
 					</div>
 				</template>

@@ -1,11 +1,20 @@
 <script lang="ts" setup>
 const { getMenuAuth } = useApiMenu();
 const menuStore = useMenuStore();
+const authStore = useAuthStore();
 await getMenuAuth();
+
+const isLargeScreen = useMediaQuery('(min-width: 800px)');
 </script>
 
 <template>
-	<nav class="fixed top-0 left-0 z-20 w-[235px] min-h-screen border-r border-gray-200 dark:border-gray-800">
+	<nav
+		class="fixed top-0 left-0 z-20 min-h-screen border-r border-gray-200 dark:border-gray-800"
+		:class="{
+			'w-[235px]': isLargeScreen,
+			'hidden w-0': !isLargeScreen,
+		}"
+	>
 		<div class="w-full flex items-center h-[var(--height-header)] mb-2 gap-1 px-3">
 			<img
 				src="https://riaac.com/img/icons/logo2.png"
@@ -13,10 +22,10 @@ await getMenuAuth();
 			>
 			<div>
 				<p class="font-bold text-sm">
-					RIAAC S.A.C.
+					{{ authStore.userData?.empresas[0].razon_social }}
 				</p>
 				<p class="text-xs">
-					7320307612
+					{{ authStore.userData?.empresas[0].ruc }}
 				</p>
 			</div>
 			<UIcon
