@@ -1,13 +1,20 @@
 <script lang="ts" setup>
 import { object, string } from 'yup';
+import type { UserData } from '~/domain/interfaces/user.interface';
+
+const apiUsuarios = useApiUsuarios();
+
+const props = defineProps<{
+	userData: UserData | null;
+}>();
 
 const formProfile = reactive({
-	nombre: '',
-	tipo_doc: '',
-	nume_doc: '',
-	celular: '',
-	email: '',
-	direccion: '',
+	nombre: props.userData?.nombre,
+	tipo_doc: props.userData?.tipo_doc,
+	nume_doc: props.userData?.nume_doc,
+	celular: props.userData?.celular,
+	email: props.userData?.email,
+	direccion: props.userData?.direccion,
 });
 
 const schemaProfile = object({
@@ -19,7 +26,7 @@ const schemaProfile = object({
 });
 
 const submitProfile = async () => {
-	console.log('enviando');
+	console.log(schemaProfile);
 };
 </script>
 

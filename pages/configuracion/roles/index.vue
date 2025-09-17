@@ -89,7 +89,6 @@ const columnFilters = ref([
 				<UButton
 					label="Nuevo rol"
 					size="lg"
-					icon="i-lucide-circle-plus"
 					@click="showDrawer = true"
 				/>
 			</div>
@@ -108,8 +107,8 @@ const columnFilters = ref([
 		</div>
 		<UDrawer
 			v-model:open="showDrawer"
-			:dismissible="false"
 			direction="right"
+			:dismissible="false"
 			:ui="{ header: 'flex items-center justify-between' }"
 		>
 			<template #header>

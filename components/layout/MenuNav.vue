@@ -1,10 +1,8 @@
 <script lang="ts" setup>
-const { getMenuAuth } = useApiMenu();
 const menuStore = useMenuStore();
 const authStore = useAuthStore();
-await getMenuAuth();
-
 const isLargeScreen = useMediaQuery('(min-width: 800px)');
+menuStore.loadMenu();
 </script>
 
 <template>
@@ -34,7 +32,7 @@ const isLargeScreen = useMediaQuery('(min-width: 800px)');
 			/>
 		</div>
 		<ul
-			v-for="(menu, i) in menuStore?.userMenu"
+			v-for="(menu, i) in menuStore?.menu"
 			:key="i"
 			class="px-2"
 		>

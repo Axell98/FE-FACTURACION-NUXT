@@ -5,5 +5,6 @@ export default withNuxt({
 		'vue/multi-word-component-names': 'off',
 		'quotes': ['error', 'single'],
 		'semi': ['error', 'always'],
+		'@typescript-eslint/no-explicit-any': 'off',
 	},
 });

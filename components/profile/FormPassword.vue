@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { object, string } from 'yup';
 
+const authStore = useAuthStore();
+const apiUsuarios = useApiUsuarios();
+
 const formPassword = reactive({
 	passwordOld: '',
 	passwordNew: '',
@@ -16,8 +19,12 @@ const schemaProfile = object({
 const showPwdOld = ref<boolean>(false);
 const showPwdNew = ref<boolean>(false);
 
-const submitForm = async () => {
-	console.log('enviando');
+const onSubmit = async () => {
+	/* await apiUsuarios.changePassword(authStore.userData?.id || 0, {
+		current_password: formPassword.passwordOld,
+		new_password: formPassword.passwordNew,
+		new_password_confirmation: formPassword.passwordConf,
+	}); */
 };
 </script>
 
@@ -36,7 +43,7 @@ const submitForm = async () => {
 			:schema="schemaProfile"
 			:state="formPassword"
 			class="space-y-4"
-			@submit="submitForm"
+			@submit="onSubmit"
 		>
 			<UFormField
 				label="Contraseña actual:"
@@ -70,9 +77,9 @@ const submitForm = async () => {
 				>
 					<template #trailing>
 						<UButton
+							size="sm"
 							color="neutral"
 							variant="link"
-							size="sm"
 							:icon="showPwdNew ? 'i-lucide-eye-off' : 'i-lucide-eye'"
 							:aria-pressed="showPwdNew"
 							@click="showPwdNew = !showPwdNew"
@@ -81,9 +88,9 @@ const submitForm = async () => {
 				</UInput>
 			</UFormField>
 			<UButton
-				type="submit"
 				icon="i-lucide-save"
 				class="mt-1"
+				type="submit"
 			>
 				Guardar
 			</UButton>

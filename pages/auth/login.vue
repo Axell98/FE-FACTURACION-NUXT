@@ -98,7 +98,7 @@ const submitLogin = async () => {
 						/>
 					</UFormField>
 					<UButton
-						:label="loading ? 'Verificando' : 'Ingresar'"
+						:label="loading ? '' : 'Ingresar'"
 						type="submit"
 						class="py-2 mt-1"
 						:loading="loading"

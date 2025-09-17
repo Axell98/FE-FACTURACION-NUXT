@@ -12,7 +12,25 @@ const useApiUsuarios = () => {
 		return response;
 	};
 
-	return { list };
+	const save = async (body: Record<string, string>) => {
+		const response = await useLazyFetch<DataResponse>(`${config.public.apiURL}/configuracion/usuarios`, {
+			method: 'POST',
+			headers,
+			body,
+		});
+		return response;
+	};
+
+	const changePassword = async (id: number, body: Record<string, string>) => {
+		const response = await useLazyFetch<DataResponse>(`${config.public.apiURL}/configuracion/usuarios/update-password/${id}`, {
+			method: 'POST',
+			headers,
+			body,
+		});
+		return response;
+	};
+
+	return { list, save, changePassword };
 };
 
 export default useApiUsuarios;

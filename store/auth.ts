@@ -40,10 +40,10 @@ export const useAuthStore = defineStore('auth', {
 		async validateAuth() {
 			if (!this.token && import.meta.client) {
 				this.token = localStorage.getItem('tokenAuth');
-				if (!this.token) {
-					this.loading = false;
-					return false;
-				}
+			}
+			if (!this.token) {
+				this.loading = false;
+				return false;
 			}
 			let checkAuth = false;
 			const { profile } = useApiAuth();

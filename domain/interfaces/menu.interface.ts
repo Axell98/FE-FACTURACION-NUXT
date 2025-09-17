@@ -5,6 +5,6 @@ export interface MenuData {
 	url?: string;
 	icono: string;
 	nuevo?: boolean | null;
-	visible?: boolean;
+	activo?: boolean;
 	submenus: MenuData[];
 }

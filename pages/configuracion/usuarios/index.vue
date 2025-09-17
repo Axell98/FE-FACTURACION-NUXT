@@ -17,7 +17,6 @@ const { data, pending } = await apiUsuarios.list();
 const table = useTemplateRef('table');
 const UBadge = resolveComponent('UBadge');
 const listadoUsuarios = ref<UserData[]>([]);
-const showDrawerPanel = ref<boolean>(false);
 
 watch(data, (response) => {
 	if (response?.status) {
@@ -99,12 +98,12 @@ const columnFilters = ref([
 					class="max-w-sm"
 					placeholder="Buscar usuario..."
 					size="lg"
+					icon="i-lucide-search"
 					@update:model-value="table?.tableApi?.getColumn('nombre')?.setFilterValue($event)"
 				/>
 				<UButton
 					label="Nuevo usuario"
-					size="lg"
-					@click="showDrawerPanel = true"
+					size="md"
 				/>
 			</div>
 			<div v-if="pending">
@@ -126,7 +125,7 @@ const columnFilters = ref([
 						<div class="flex gap-3">
 							<UButton
 								variant="subtle"
-								size="md"
+								size="lg"
 								color="info"
 								icon="i-lucide-pencil"
 								:ui="{
@@ -136,7 +135,7 @@ const columnFilters = ref([
 							/>
 							<UButton
 								variant="subtle"
-								size="md"
+								size="lg"
 								color="error"
 								icon="i-lucide-trash"
 								:ui="{
@@ -149,26 +148,5 @@ const columnFilters = ref([
 				</UTable>
 			</div>
 		</div>
-		<UDrawer
-			v-model:open="showDrawerPanel"
-			:dismissible="false"
-			direction="right"
-			:ui="{ header: 'flex items-center justify-between' }"
-		>
-			<template #header>
-				<h2 class="text-highlighted font-semibold">
-					Nuevo usuario
-				</h2>
-				<UButton
-					color="neutral"
-					variant="ghost"
-					icon="i-lucide-x"
-					@click="showDrawerPanel = false"
-				/>
-			</template>
-			<template #body>
-				<FormsFormUserReg />
-			</template>
-		</UDrawer>
 	</LayoutBaseLayout>
 </template>

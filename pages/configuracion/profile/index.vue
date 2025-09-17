@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { UserData } from '~/domain/interfaces/user.interface';
+
 definePageMeta({
 	middleware: 'auth',
 });
@@ -20,6 +22,9 @@ const items = ref([
 		to: '/configuracion/profile',
 	},
 ]);
+
+const authStore = useAuthStore();
+const userData = ref<UserData | null>(authStore.userData);
 </script>
 
 <template>
@@ -51,37 +56,25 @@ const items = ref([
 							Usuario:
 						</div>
 						<div class="text-sm">
-							avalle
+							{{ userData?.usuario }}
 						</div>
 						<div class="text-sm">
 							Rol:
 						</div>
-						<div class="text-sm">
-							Admin del sistema
+						<div class="text-sm truncate">
+							{{ userData?.roles.display_name }}
 						</div>
 						<div class="text-sm">
-							Fecha de reg:
+							Registro:
 						</div>
-						<div class="text-sm">
-							26/08/2025 13:42
+						<div class="text-sm truncate">
+							{{ userData?.created_at }}
 						</div>
 					</div>
 				</UCard>
 			</div>
-			<!-- <div class="w-full flex flex-col items-center max-w-[310px] border rounded-2xl p-5">
-				<UAvatar
-					src="/images/avatar-men.png"
-					class="size-[130px]"
-				/>
-				<UButton
-					class="mt-3 mb-6"
-					size="sm"
-					label="Cambiar imagen"
-				/>
-
-			</div> -->
 			<div class="w-full space-y-6">
-				<ProfileFormUser />
+				<ProfileFormUser :user-data="userData" />
 				<ProfileFormPassword />
 			</div>
 		</div>
